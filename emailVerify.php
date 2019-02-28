@@ -29,10 +29,18 @@
 		 		$password = md5($password1);
 		 		$sql = "INSERT INTO user (userID,email,userPasswd) VALUES ('$userID','$userEmail','$password')";
 		 		if($conn->query($sql)===TRUE){
+		 		//Create Verify Code & insert into database
+		 		$insert = FALSE;
+		 		while($insert === FALSE){
 			 			$arr = array(rand(0,9),rand(0,9),rand(0,9),rand(0,9));
 			 			$verifyCode = implode($arr);	
 			 			$_SESSION['verifyCode'] = $verifyCode;
-
+			 			$vSql = "UPDATE user SET verifyCode = '$verifyCode' WHERE userID = '$userID'";
+			 			if($conn->query($vSql)===TRUE){
+			 				$insert = TRUE;
+			 			}
+		 		}
+					//Generate Email
 					$mail->addAddress($userEmail, "MeFromGmail");	
 
 					$mail->Subject = "Email Verification";
@@ -43,9 +51,11 @@
 
 					if(!$mail->send()){
 							echo "Mailer Error: " . $mail->ErrorInfo;
+							//Might have to add a resend function for unsent email. Refer verify code in database and resend it.
 					}else{
-						echo "<script type = 'text/javascript'>alert('Please Check Your Email for Verification Code')</script>";
-						header('Location:localhost/newWebsite/mainPage.php');
+						$message = "Please Check Your Email for Verification Code!";
+				$url = "index.php";
+				echo "<script type = 'text/javascript'>alert('$message');window.location = '$url'</script>";
 					}				 			
    		}
    	}

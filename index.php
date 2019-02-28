@@ -1,5 +1,6 @@
 <?php include_once("template/headerTemplate.php");
-      include_once("template/databaseConnection.php"); ?>
+      include_once("template/databaseConnection.php");
+       ?>
 <body onload = "checkLogin()">
   <div class = "orderWrap">
     <div class = "content">

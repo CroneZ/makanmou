@@ -23,7 +23,7 @@
 		  		//Login Success
 		  		$_SESSION['userID'] = $userID;
 		  		$_SESSION['success'] = true;
-		  		header("Location:mainPage.php?login=sucess");
+		  		header("Location:index.php?login=sucess");
 		  	}
     	}else{
     		echo "<script type = 'text/javascript'>alert('Invalid Username/Password');</script>";
@@ -38,11 +38,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>MakanMOU</title>
   <link rel="stylesheet" type="text/css" href="css/template.css">
   <!-- This website is gonna be minimalist  -->
     <div class = "navbarWrap">
 		  <div class = "container1">
-		  	<a id = "home" href="/newWebsite/mainPage.php">Home</a>
+		  	<a id = "home" href="/newWebsite/index.php">Home</a>
 		    <!-- ^Replace with logo -->
 		    <a href="/newWebsite/register.php">Sign Up</a>
 		    <!-- Do I really need an about page ? -->
@@ -63,7 +64,7 @@
     </div>
     <div class = "filter2" id = "filter">
       <div class = "popupFormWrap">
-        <form class = "popupForm"  method = "post" action = "mainPage.php?action=login">
+        <form class = "popupForm"  method = "post" action = "index.php?action=login">
           <p>Username</p>
           <input type = "text" name = "username" placeholder="Enter Username"/>
           <input type = "password" name = "password" placeholder="Enter Password"/>
@@ -71,6 +72,7 @@
             <input type = "submit" value = "Login"/>
             <input type = "button" value = "Close" onclick = "closeForm();"/>
           </div>
+          <a class = "navbarWrap" id = "forgotPass" href="/newWebsite/forget.php">Forgot Your Password</a>
         </form>
       </div>
     </div>
@@ -98,7 +100,7 @@
   	if(checkLoggedIn == true){
   		var user = "<?php if(isset($userID)){echo $userID;}else{ echo 'default';} ?>";
   		document.getElementById("topRightButton").text = "LogOut";
-  		document.getElementById("topRightButton").href = "mainPage.php?action=logout";
+  		document.getElementById("topRightButton").href = "index.php?action=logout";
   		document.getElementById("welcomeText").innerHTML = "Welcome, "+user;
   	}else{
   		document.getElementById("topRightButton").text = "LogIn";

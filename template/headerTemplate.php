@@ -21,7 +21,9 @@
 		  	$result = mysqli_query($conn,$sql);
 		  	if(mysqli_num_rows($result)==1){
 		  		//Login Success
+		  		$row = mysqli_fetch_assoc($result);
 		  		$_SESSION['userID'] = $userID;
+		  		$_SESSION['whoIsIt'] = $row['identity'];
 		  		$_SESSION['success'] = true;
 		  		header("Location:index.php?login=sucess");
 		  	}
@@ -31,11 +33,12 @@
     }else if($_GET['action']=='logout'){
     	unset($_SESSION['success']);
     	unset($_SESSION['userID']);
+    	unset($_SESSION['whoIsIt']);
     }
   }//Bracket for get action validation
  ?>
 
-<!DOCTYPE html>
+<!DOCTYPE html5>
 <html>
 <head>
 	<title>MakanMOU</title>
@@ -45,9 +48,6 @@
 		  <div class = "container1">
 		  	<a id = "home" href="/newWebsite/index.php">Home</a>
 		    <!-- ^Replace with logo -->
-		    <a href="/newWebsite/register.php">Sign Up</a>
-		    <!-- Do I really need an about page ? -->
-		    <a href="">Menu</a>
 		    <!-- I want this Menu to do a drop down list -->
 		    <a href="">MyAcc</a>
 		    <!-- This should be the same for either users or vendor -->
@@ -56,6 +56,7 @@
 		  	<p id = "welcomeText" ></p>
 		  </div>
 		  <div class = "container3">
+		  <a id = "signUp" class = "signUp" href="/newWebsite/register.php?mode=user">Sign Up</a>
 		  <a id = "topRightButton"class = "logout" href = "javascript:openForm()"></a>
       </div>
 		  
@@ -66,8 +67,8 @@
       <div class = "popupFormWrap">
         <form class = "popupForm"  method = "post" action = "index.php?action=login">
           <p>Username</p>
-          <input type = "text" name = "username" placeholder="Enter Username"/>
-          <input type = "password" name = "password" placeholder="Enter Password"/>
+          <input type = "text" name = "username" placeholder="Enter Username" required>
+          <input type = "password" name = "password" placeholder="Enter Password" required>
           <div class = "loginButtonPanel">
             <input type = "submit" value = "Login"/>
             <input type = "button" value = "Close" onclick = "closeForm();"/>
@@ -83,11 +84,13 @@
     // document.getElementById("filter").style.opacity = 1;
     document.getElementById("filter").className = "filter3";
     document.getElementById("topRightButton").className = "logout2";
+    document.getElementById("signUp").className = "signUpAfter";
   }
   function closeForm(){
     // document.getElementById("filter").style.opacity = 0;
     document.getElementById("filter").className = "filter2";
     document.getElementById("topRightButton").className = "logout";
+    document.getElementById("signUp").className = "signUp";
   }
   function checkLogin(){
   	<?php
@@ -106,6 +109,24 @@
   		document.getElementById("topRightButton").text = "LogIn";
   		document.getElementById("topRightButton").href = "javascript:openForm()";
   		document.getElementById("welcomeText").innerHTML = "";
+  	}
+  }
+  function changeCurrent(who){
+  	if(who == 'user'){
+  		document.getElementById("tableUser").style.display = "table";
+  		document.getElementById("tableVendor").style.display = "none";
+  	}else if(who == 'vendor'){
+  		document.getElementById("tableVendor").style.display = "table";
+  		document.getElementById("tableUser").style.display = "none";
+  	}else{
+  		document.write("ERROR no Value for changeCurrent function argument!");
+  	}
+  }
+  function registerUser(who){
+  	if(who == 'user'){
+  		window.location = "register.php?mode=user";
+  	}else if(who == 'vendor'){
+  		window.location = "register.php?mode=vendor";
   	}
   }
   

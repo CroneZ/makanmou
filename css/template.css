@@ -31,6 +31,7 @@ body{
 	width:50%;
 }
 .container3{
+	text-align:right;
 	width:25%;
 }
 .navbarWrap a{
@@ -125,12 +126,22 @@ body{
   width: 46%;
   align-items: flex-end;
 }
-
+.signUp{
+	transition-timing-function: ease-in-out;
+  transition:0.25s;
+  transform: translate(0,0);
+}
+.signUpAfter{
+	position: relative;
+	transition-timing-function: ease-in-out;
+  transition:0.2s;
+  transform: translate(0,-180%);
+  }
 /*=============================================================================================*/
+/*index page*/
 
 
-
-
+/*User*/
 .orderWrap{
 	padding: 50px;
 	background-image: url("images/headerimg.png");
@@ -160,6 +171,73 @@ body{
   box-shadow: 0px 3px 13px 3px grey;
 }
 
+
+/*Admin*/
+.mainWrap{
+	display:flex;
+	flex-direction:row;
+	padding:10px;
+}
+.leftContainer{
+	width:85%;
+	padding:20px;
+}
+.switchView{
+	display:flex;
+	flex-direction:column;
+	width:100%;
+}
+.viewButtonPanel{
+	width:30%;
+	margin-bottom:10px;
+}
+.viewButtonPanel input[type = "button"]{
+	font-size:20px;
+	padding:15px;
+	border-radius:3px;
+}
+.registerPanel{
+	display:flex;
+	flex-direction:column;
+	width:15%;
+	
+}
+.registerPanel h1{
+	font-size : 130%;
+}
+.registerPanel input[type = "button"]{
+	font-size : 20px;
+	box-shadow: 0px 3px 13px 3px grey;
+	padding:5px;
+	border-radius:3px;
+	margin-top:15px;
+	width: 80%;
+}
+.table{
+	padding-right:20px;
+	padding-top:20px;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+#tableUser{
+	display:table;
+}
+#tableVendor{
+	display:none;
+}
 /*==================================================================================*/
 /*RegisterPage CSS*/
 
@@ -217,4 +295,74 @@ body{
 	left:25%;
 	top:25%;
 	border:1px solid black;
+}
+/*
+================================================================================
+*/
+/*MenuRegister*/
+.menuRegister{
+	padding:20px;
+}
+/*
+================================================================================
+editUser css
+*/
+.columnFlex{
+	display:flex;
+	flex-direction:column;
+	width:100%;
+	padding:10px;
+}
+.rowFlex{
+	display:flex;
+	flex-direction:row;
+	width:100%;
+}
+.rowFlex input[type = "text"],[type = "password"]{
+	height:50%;
+	transform: translate(0,50%);
+	margin-left:10px;
+}
+/*
+================================================================================
+menuItem Css
+*/
+.menuWrap{
+	display:flex;
+	flex-direction:column;
+	height:50%;
+}
+.images{
+  display:flex;
+  flex-direction: row;
+  border:1px solid black;
+  margin: 10px;
+  border-radius: 10px;
+  background-color: #F2EEEE;
+  padding: 10px;
+}
+.imgName p{
+  color:black;
+  font-family:cursive;
+}
+.diagram{
+  margin-right:20px;
+}
+.diagramBox{
+  width: 200px;
+  height: 200px;
+  border-radius: 200px;
+  margin: 20px;
+  border: 10px solid #4CAF50;
+}
+.orderForm .addtoCart{
+  display:flex;
+  flex-direction: column;
+  padding-top: 30px;
+  right:10px;
+  position: absolute;
+}
+.orderForm .addtoCart input{
+  margin: 20px;
+  padding:20px;
 }

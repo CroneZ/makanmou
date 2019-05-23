@@ -1,16 +1,12 @@
-<body onload = "checkLogin();">
-				<div class = "orderWrap">
-					<div class = "content">
-						<h1 class = "title">MAKANMOU</h1>
-						<form class = "form" method = "post" action = "index.php">
-						  <input type = "text" name = "keyword" placeholder="Search By Typing"/>
-						  <input type = "submit" name = "search" style = "display:none;"/>
-						</form>
-					</div>
-				</div>
-				<div>
-				<?php
-					$mSql = "SELECT * FROM menulist";
+<?
+	include_once("template/headerTemplate.php");
+	include_once("template/databaseConnection.php");
+	
+	if($_GET['action']){
+		if($_GET['action']=='view'){
+			if($_GET['user']){
+			$vendorID = $_GET['user'];
+			$mSql = "SELECT * FROM menulist WHERE vendorID = '$vendorID'";
 					if(isset($_POST['search'])){
 						$keyword = $_POST['keyword'];
 						$mSql = "SELECT * FROM menulist WHERE productName LIKE '%$keyword%'";
@@ -18,6 +14,7 @@
 					$result = mysqli_query($conn,$mSql);
 					while($row = mysqli_fetch_array($result)){
           ?>
+          <body onload = "checkLogin();">
           <div class = "menuWrap">
             <div class = "images">
               <div class = "diagram">
@@ -29,15 +26,15 @@
               <p>RM<?php echo $row["productPrice"];?></p>
             </div>
             <div class = "orderForm">
-              <form class = "addtoCart" action = "order.php?action=add&id=<?php echo $row['productID'];?>" method="post" >
-                <input type = "text" name = "quantity" placeholder = "Enter Amount"/>
-                <input type = "submit" name = "add" value = "Add to Cart" onclick = "checkUser();"/>
+              <form class = "editDetailsVENDOR" action = "editMenu.php?action=edit&user=<?php echo $vendorID; ?>&itemID=<? $itemID = $row['productID']; echo $itemID ?>" method="post" >
+							<input type = "submit" name = "edit" value = "EDIT" onclick = "checkUser();"/>
               </form>
             </div>
           </div>
+          </body>
           <?php
         }
-				?>
-		</div>		
-</body>
-
+			}
+		}
+	}
+?>

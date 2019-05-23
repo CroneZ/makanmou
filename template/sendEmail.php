@@ -1,5 +1,6 @@
 <?php
 	require '/usr/share/php/libphp-phpmailer/PHPMailerAutoload.php';
+		require '/usr/share/php/libphp-phpmailer/PHPMailerAutoload.php';
 	$mail = new PHPMailer;
 	
 	//Enable SMTP debugging. 

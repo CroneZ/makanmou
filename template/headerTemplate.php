@@ -49,14 +49,14 @@
 		  	<a id = "home" href="/newWebsite/index.php">Home</a>
 		    <!-- ^Replace with logo -->
 		    <!-- I want this Menu to do a drop down list -->
-		    <a href="">MyAcc</a>
+		    <a href="cart.php">MyAcc</a>
 		    <!-- This should be the same for either users or vendor -->
 		  </div>
 		  <div class = "container2">
 		  	<p id = "welcomeText" ></p>
 		  </div>
 		  <div class = "container3">
-		  <a id = "signUp" class = "signUp" href="/newWebsite/register.php?mode=user">Sign Up</a>
+		  <a id = "signUp" class = "signUp" href="/newWebsite/register.php">Sign Up</a>
 		  <a id = "topRightButton"class = "logout" href = "javascript:openForm()"></a>
       </div>
 		  
@@ -115,9 +115,18 @@
   	if(who == 'user'){
   		document.getElementById("tableUser").style.display = "table";
   		document.getElementById("tableVendor").style.display = "none";
+  		document.getElementById('tableVerify').style.display = "none";
+  		document.getElementById('current').innerHTML = "Currently Viewing: User";
   	}else if(who == 'vendor'){
   		document.getElementById("tableVendor").style.display = "table";
   		document.getElementById("tableUser").style.display = "none";
+  		document.getElementById('tableVerify').style.display = "none";
+  		document.getElementById('current').innerHTML = "Currently Viewing: Vendor";
+  	}else if(who == 'verify'){
+  		document.getElementById('tableVerify').style.display = "table";
+  		document.getElementById('tableUser').style.display = "none";
+  		document.getElementById('tableVendor').style.display = "none";
+  		document.getElementById('current').innerHTML = "Currently Viewing: Verify List";
   	}else{
   		document.write("ERROR no Value for changeCurrent function argument!");
   	}

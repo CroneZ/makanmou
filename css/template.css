@@ -127,15 +127,18 @@ body{
   align-items: flex-end;
 }
 .signUp{
+	position:fixed;
+	width:5%;
 	transition-timing-function: ease-in-out;
   transition:0.25s;
-  transform: translate(0,0);
+  transform: translate(-120%,-10%);
 }
 .signUpAfter{
-	position: relative;
+	position: fixed;
+	width:5%;
 	transition-timing-function: ease-in-out;
   transition:0.2s;
-  transform: translate(0,-180%);
+  transform: translate(-120%,-180%);
   }
 /*=============================================================================================*/
 /*index page*/
@@ -188,8 +191,12 @@ body{
 	width:100%;
 }
 .viewButtonPanel{
-	width:30%;
+	width:50%;
+	display:flex;
 	margin-bottom:10px;
+}
+.viewButtonPanel input{
+	margin-right:10px;
 }
 .viewButtonPanel input[type = "button"]{
 	font-size:20px;
@@ -236,6 +243,9 @@ tr:nth-child(even) {
 	display:table;
 }
 #tableVendor{
+	display:none;
+}
+#tableVerify{
 	display:none;
 }
 /*==================================================================================*/
@@ -366,3 +376,24 @@ menuItem Css
   margin: 20px;
   padding:20px;
 }
+/* 
+================================================================================
+vendorPage CSS
+*/
+.pageWrap{
+	padding:1%;
+}
+.editDetailsVENDOR{
+	position:relative;
+	right:5px;
+}
+/*
+================================================================================
+CartPage(vendorSide)
+*/
+.tableWrap{
+	padding:1%;
+	border:2px solid #ddd;
+	margin-bottom:1%;
+}
+

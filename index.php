@@ -4,7 +4,7 @@
 	if(isset($_SESSION['whoIsIt'])){
 		if($_SESSION['whoIsIt'] == "vendor"){
 		?>
-		<body onload = "checkLogin();">
+		<body onload = "checkLogin();checkStatus();">
 			<div class = "pageWrap">
 				<div class = "profileContainer">
 					<?
@@ -14,12 +14,19 @@
 						$row = mysqli_fetch_assoc($result);
 						?>
 						<h1><? echo $row['userID'] ?></h1>
+						<div class = "vendorNameArea" >
+						<h2>Status:</h2>
+						<label class = "switch" id = "switch">
+							<input type = "checkbox" id = "checkBox">
+							<span class = "slider round" data-label-on = "ON" data-label-off = "OFF" onclick = "changeStatus()"></span>
+						</label>
+						</div>
 						<h2>Your Menu</h2>
 						<?
 if($_SESSION['userID']){//module for show certain user
 	$vendorID = $_SESSION['userID'];
 ?>
-		<div>
+		</div>
 				<?php
 					$mSql = "SELECT * FROM menulist WHERE vendorID = '$vendorID'";
 					if(isset($_POST['search'])){
@@ -62,11 +69,13 @@ if($_SESSION['userID']){//module for show certain user
 			<div class = "mainWrap">
 				<div class = "leftContainer">
 					<div class = "switchView">
+					<div class = "aboveTable">
 						<h1 id="current">Currently Viewing: User</h1>
 						<div class = "viewButtonPanel">
 							<input type = "button" name = "user" value = "user" onclick = "changeCurrent('user');"/>
 							<input type = "button" name = "vendor" value = "vendor" onclick = "changeCurrent('vendor');"/> 
 							<input type = "button" name = "verify" value = "verify" onclick = "changeCurrent('verify');"/> 
+						</div>
 						</div>
 						<div id = "table" class  = "tableGeneral">
 							<table id = "tableUser" class ="tableUser">

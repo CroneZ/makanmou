@@ -94,5 +94,36 @@
 		 			echo "<script type='text/javascript'>alert('$message');window.location='$url'</script>";
   	}
   }
+ }elseif(isset($_GET['email'])){
+		 //This is for forget password
+		$email = $_GET['email'];
+		echo $email;
+		$insert = FALSE;
+		 	while($insert === FALSE){
+			 	$arr = array(rand(0,9),rand(0,9),rand(0,9),rand(0,9));
+			 	$verifyCode = implode($arr);	
+			 	$_SESSION['verifyCode'] = $verifyCode;
+			 	$vSql = "UPDATE user SET verifyCode = '$verifyCode' WHERE email = '$email'";
+			 	echo "Hello";
+			 	if($conn->query($vSql)===TRUE){
+			 		$insert = TRUE;
+			 	}
+		 }
+		 
+		$mail->addAddress($email, "MeFromGmail");	
+		$mail->Subject = "Email Verification";
+		$mail->Body = "<p>Click on the following link to reset your password</p>
+										<p> This is your verification code : $verifyCode</p>
+										<a href = localhost/newWebsite/resetPassword.php>Link to Verify</a>";
+		$mail->AltBody = "This is the plain text version of the email content";
+			if(!$mail->send()){
+				echo "Mailer Error: " . $mail->ErrorInfo;
+				//Might have to add a resend function for unsent email. Refer verify code in database and resend it.
+			}else{
+				//mail sent successfully
+				$url = "index.php";
+				$message = "Check Your inbox for mail!";
+				echo "<script type = 'text/javascript'>alert('$message');window.location = '$url'</script>";
+		 		}	
  }
  ?>

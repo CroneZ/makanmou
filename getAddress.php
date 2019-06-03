@@ -8,6 +8,8 @@
 				//clicked on satria	
 				?>
 					<body onload = "checkLogin();">
+					<div class = "pageWrap">
+					<div class = "formPanel">
 						<form method = "post" action = "getAddress.php?detail=true&zone=satria">
 							<p>Block: </p>
 							<select name = "category1">
@@ -47,13 +49,16 @@
 								</select>
 							<input type = "submit" value = "submit" name = "detail"/>
 						</form>
+						</div></div>
 					</body>
 				<?
 			}elseif(isset($_POST['lestari'])){
 				//clicked on lestari
 				?>
 					<body onload = "checkLogin();">
-						<form>
+						<div class = "pageWrap">
+							<div class = "formPanel">
+							<form method = "post" action = "getAddress.php?detail=true&zone=lestari">
 							<p>Block</p>
 							<select name = "category1">
 								<option value = "a">a</option>
@@ -83,9 +88,10 @@
 									}
 								?>
 							</select>
-							
+						<input type = "submit" value = "submit" name = "detail"/>
 							
 						</form>
+						</div></div>
 					</body>
 				<?
 			}else{
@@ -101,16 +107,25 @@
 						$url = "cart.php?action=order&address=$address";
 						echo "<script type = 'text/javascript'>window.location = '$url'</script>";
 					}
+				}elseif($_GET['zone']=='lestari'){
+					$array = array('lestari',$_POST['category1'],$_POST['category2'],$_POST['category3'],$_POST['category4']);
+					$address = implode('-',$array);
+					$url = "cart.php?action=order&address=$address";
+					echo "<script type = 'text/javascript'>window.location = '$url'</script>";
 				}
 			}
 		}
 	}else{
 		?>
 			<body onload = "checkLogin();">
+				<div class = "pageWrap">
+					<div class = "formPanel">
 				<form method = "post" action = "getAddress.php?detail=false">
+					<h2>Where do you live:</p>
 					<input type = "submit" value = "SATRIA" name = "satria"/>
 					<input type = "submit" value = "LESTARI" name = "lestari"/>
 				</form>
+				</div></div>
 			</body>
 		<?
 	}

@@ -80,7 +80,7 @@ if(isset($_GET['action'])){
 			$waitingID = $_GET['user'];
 			$vSql = "INSERT INTO user(userID,userPasswd,email) SELECT userID,userPasswd,email FROM waitingList WHERE waitingID = '$waitingID'";
 			if($conn->query($vSql)==true){
-				$upSql = "UPDATE user SET identity = 'vendor', status = 'Verified' WHERE userID IN (SELECT userID FROM waitingList WHERE waitingID = '$waitingID')";	
+				$upSql = "UPDATE user SET identity = 'vendor', status = 'unavailable' WHERE userID IN (SELECT userID FROM waitingList WHERE waitingID = '$waitingID')";	
 				if($conn->query($upSql)==true){
 				/*
 					$message = "Done!";
@@ -89,7 +89,7 @@ if(isset($_GET['action'])){
 					window.location='$url';</script>";
 				*/
 					$delSql = "DELETE FROM waitingList WHERE waitingID = '$waitingID'";
-					if($conn->query($delSql)){
+					if($conn->query($delSql)==true){
 						$message = "Done!";
 						$url = "index.php";
 						echo "<script type = 'text/javascript'>alert('$message');
@@ -97,7 +97,7 @@ if(isset($_GET['action'])){
 					}else{
 						echo $conn->error;
 					}
-				}else{
+				}else{//end of update status to verified
 					echo $conn->error;
 					echo $waitingID;
 				}//end of check for identity update

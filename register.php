@@ -44,6 +44,7 @@
 		<body class = "registerBG" onload = "checkLogin()">
 			<div class = "registerFormWrap">
 				<form id = "registerForm" class = "registerForm" method = "post" action = "emailVerify.php">
+				<h2>Register As:</h2>
 					<input type = "button" value = "user" onclick = "registerUser('user');"/>
 					<input type = "button" value = "vendor" onclick = "registerUser('vendor');"/>
 				</form>

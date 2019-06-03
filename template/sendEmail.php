@@ -1,12 +1,12 @@
 <?php
-	require '/usr/share/php/libphp-phpmailer/PHPMailerAutoload.php';
-		require '/usr/share/php/libphp-phpmailer/PHPMailerAutoload.php';
-	$mail = new PHPMailer;
+	require_once('/usr/share/php/libphp-phpmailer/src/PHPMailer.php');
+	require_once('/usr/share/php/libphp-phpmailer/src/SMTP.php');
+	$mail = new PHPMailer\PHPMailer\PHPMailer();
 	
 	//Enable SMTP debugging. 
 	$mail->SMTPDebug = 3;                               
 	//Set PHPMailer to use SMTP.
-	$mail->isSMTP();            
+	$mail->IsSMTP();            
 	//Set SMTP host name                          
 	$mail->Host = "smtp.office365.com";
 	//Set this to true if SMTP host requires authentication to send email

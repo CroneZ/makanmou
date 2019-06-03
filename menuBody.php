@@ -17,6 +17,11 @@
 					}
 					$result = mysqli_query($conn,$mSql);
 					while($row = mysqli_fetch_array($result)){
+					$vendorID = $row['vendorID'];
+					$sql = "SELECT * FROM user WHERE userID = '$vendorID'";
+					$aResult = mysqli_query($conn,$sql);
+					$aRow = mysqli_fetch_assoc($aResult);
+					if($aRow['status']=='available'){
           ?>
           <div class = "menuWrap">
             <div class = "images">
@@ -36,6 +41,7 @@
             </div>
           </div>
           <?php
+          }
         }
 				?>
 		</div>		

@@ -25,6 +25,7 @@
 		  		$_SESSION['userID'] = $userID;
 		  		$_SESSION['whoIsIt'] = $row['identity'];
 		  		$_SESSION['success'] = true;
+		  		$_SESSION['status'] = $row['status'];
 		  		header("Location:index.php?login=sucess");
 		  	}
     	}else{
@@ -34,8 +35,22 @@
     	unset($_SESSION['success']);
     	unset($_SESSION['userID']);
     	unset($_SESSION['whoIsIt']);
+    }else if($_GET['action']=='available'){
+    	$userID = $_SESSION['userID'];
+    	$sql = "UPDATE user SET status = 'available' WHERE userID = '$userID'";if($conn->query($sql)){}else{echo $conn->error;}
+    }else if($_GET['action']=='unavailable'){
+    	$userID = $_SESSION['userID'];
+    	$sql = "UPDATE user SET status = 'unavailable' WHERE userID = '$userID'";if($conn->query($sql)){}else{echo $conn->error;}
     }
   }//Bracket for get action validation
+  //update status
+  if(isset($_SESSION['success'])){
+  	$userID = $_SESSION['userID'];
+  	$sql = "SELECT * FROM user WHERE userID = '$userID'";
+  	$result = mysqli_query($conn,$sql);
+  	$row = mysqli_fetch_assoc($result);
+  	$_SESSION['status']=$row['status'];
+  }
  ?>
 
 <!DOCTYPE html5>
@@ -49,15 +64,36 @@
 		  	<a id = "home" href="/newWebsite/index.php">Home</a>
 		    <!-- ^Replace with logo -->
 		    <!-- I want this Menu to do a drop down list -->
-		    <a href="cart.php">MyAcc</a>
+		    <a href="cart.php">
+		    <?
+		    if(isset($_SESSION['success'])){
+		    	if($_SESSION['whoIsIt']=='user'||$_SESSION['whoIsIt']=='vendor'){
+		    		echo "MyOrders";
+		    	}elseif($_SESSION['whoIsIt']=='admin'){
+		    		echo "Analytics";
+		    	}
+		    }else{
+		    	echo "MyOrders";
+		    }
+		    ?>
+		    </a>
 		    <!-- This should be the same for either users or vendor -->
 		  </div>
 		  <div class = "container2">
 		  	<p id = "welcomeText" ></p>
 		  </div>
 		  <div class = "container3">
-		  <a id = "signUp" class = "signUp" href="/newWebsite/register.php">Sign Up</a>
 		  <a id = "topRightButton"class = "logout" href = "javascript:openForm()"></a>
+		  <a id = "signUp" class = "logout" href="/newWebsite/register.php"><?
+		  if(isset($_SESSION['whoIsIt'])){
+		  	if($_SESSION['whoIsIt']=='admin'){
+		  		echo "addUser";
+		  	}else{
+		  	}
+		  }else{
+		  	echo "SignUp";
+		  }
+		  ?></a>
       </div>
 		  
       
@@ -66,7 +102,7 @@
     <div class = "filter2" id = "filter">
       <div class = "popupFormWrap">
         <form class = "popupForm"  method = "post" action = "index.php?action=login">
-          <p>Username</p>
+          <p>Login</p>
           <input type = "text" name = "username" placeholder="Enter Username" required>
           <input type = "password" name = "password" placeholder="Enter Password" required>
           <div class = "loginButtonPanel">
@@ -90,7 +126,7 @@
     // document.getElementById("filter").style.opacity = 0;
     document.getElementById("filter").className = "filter2";
     document.getElementById("topRightButton").className = "logout";
-    document.getElementById("signUp").className = "signUp";
+    document.getElementById("signUp").className = "logout";
   }
   function checkLogin(){
   	<?php
@@ -138,5 +174,50 @@
   		window.location = "register.php?mode=vendor";
   	}
   }
+  function changeStatus(){
+  		var status = "<?php if(isset($_SESSION['status'])){echo $_SESSION['status'];}else{echo 'false';}?>";
+  		if(status == 'available'){
+  			//user is already available , now change to unavailable
+ 				window.location = "index.php?action=unavailable";
+  			
+  		}else if(status == 'unavailable'){
+  			//user is already unavailable , now change to available
+  			window.location = "index.php?action=available";
+  		
+  		}else{
+  			//Error
+  		}
+  }
+  function checkStatus(){
+  		var status = "<?php if(isset($_SESSION['status'])){echo $_SESSION['status'];}else{echo 'false';}?>";
+  		if(status == 'available'){
+  			//user is already available , now change to unavailable
+  			document.getElementById('checkBox').checked = true;
+  		}else if(status == 'unavailable'){
+  			//user is already unavailable , now change to available
+  			document.getElementById('checkBox').checked = false;
+  		}else{
+  			//Error
+  		}
+  }
   
+  function changeChart(chart){
+  	if(chart == 'hostel'){
+  		document.getElementById('chart_div').style.display = "block";
+  		document.getElementById('chart_div2').style.display = "none";
+  		document.getElementById('chart_div3').style.display = "none";
+  	}else if(chart == 'satria'){
+  		document.getElementById('chart_div').style.display = "none";
+  		document.getElementById('chart_div2').style.display = "block";
+  		document.getElementById('chart_div3').style.display = "none";
+  	}else if(chart == 'lestari'){
+  		document.getElementById('chart_div').style.display = "none";
+  		document.getElementById('chart_div2').style.display = "none";
+  		document.getElementById('chart_div3').style.display = "block";
+  	}
+  }
+ 
+
+  
+
 </script>

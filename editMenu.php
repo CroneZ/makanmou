@@ -3,7 +3,7 @@
 	require_once("template/headerTemplate.php");
 	
 	if(isset($_GET['user'])){
-		if($_GET['action']){
+		if(isset($_GET['action'])){
 			if($_GET['action']=='edit'){
 				$userID = $_GET['user'];
 				$itemID = $_GET['itemID'];
